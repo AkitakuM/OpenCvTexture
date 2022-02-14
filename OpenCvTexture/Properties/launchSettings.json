@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenCvTexture": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\humandetect\\vedis3.jpg  16  "
+    }
+  }
+}
