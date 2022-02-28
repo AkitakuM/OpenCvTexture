@@ -2,7 +2,7 @@
   "profiles": {
     "OpenCvTexture": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\humandetect\\vedis3.jpg  16  "
+      "commandLineArgs": "D:\\humandetect\\vedis3.jpg  16  0.7 10"
     }
   }
 }

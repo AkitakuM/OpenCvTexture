@@ -12,7 +12,8 @@ namespace OpenCvTexture
         public int QuantLevel;
         public byte[]? Pixels;
         public byte[]? QuantPixels;
-        public int BinaryPixels;
+        public int[]? BinaryPixels;
+       
     }
     class Program
     {
@@ -21,6 +22,7 @@ namespace OpenCvTexture
             var fileName = args[0];
             var quantizationLevel = Int32.Parse(args[1]);
             var threshold=Double.Parse(args[2]);
+            var filtersize=Int32.Parse(args[3]);
             var frame = Cv2.ImRead(fileName);
             var matrixMat = new MatrixMat();
             matrixMat.Height = frame.Height;
@@ -30,6 +32,7 @@ namespace OpenCvTexture
             matrixMat.Pixels = matConvertor.MatToByte(frame);
             matrixMat.QuantLevel = quantizationLevel;
             matrixMat.QuantPixels = matConvertor.Quantize(matrixMat);
+            matrixMat.BinaryPixels = textureCal.GetGlcmHomogeneity(matrixMat, filtersize, threshold);
         }
 
        

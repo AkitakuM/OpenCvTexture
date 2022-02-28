@@ -9,20 +9,25 @@ namespace OpenCvTexture
 {
     internal class TextureCalculator
     {
-        public double[] GetGlcmHomogeneity(MatrixMat matrixMat,int filterSize)
+        public int[] GetGlcmHomogeneity(MatrixMat matrixMat,int filterSize,double threshold)
         {
-            var homogeneity = new double[matrixMat.QuantPixels.Length];
+            var binary = new int[matrixMat.QuantPixels.Length];
             if (filterSize % 2 != 0) { filterSize += 1; }
             Parallel.For(filterSize / 2, matrixMat.Height - filterSize / 2, y =>
              {
                  for (int x = (filterSize / 2); x < matrixMat.Width - filterSize / 2; x++)
                  {
                      var glcmTable = GetGlcm(matrixMat, filterSize, x, y);
-                     homogeneity[x + y * matrixMat.Width] = GetHomogeneity(glcmTable);
+                     var homogeneity = GetHomogeneity(glcmTable);
+                     if(homogeneity>=threshold)
+                     {
+                         binary[x + y * matrixMat.Width] = 1;
+                     }
+                     else { binary[x + y * matrixMat.Width] = 0; }
                     //Debug.WriteLine("x={0},y={1},quant={2},homo={3}", x, y, matrixMat.QuantPixels[x + y * matrixMat.Width], homogeneity[x + y * matrixMat.Width]);
                 }
              });
-            return homogeneity;
+            return binary;
         }
 
         //GLCMを計算する関数

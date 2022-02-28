@@ -27,8 +27,30 @@ namespace OpenCvTexture
             {
                 quantPixels[i] = (byte)(matrixMat.Pixels[i * 3 + 2] * matrixMat.QuantLevel / 256);
             }
-            Console.WriteLine("quant={0}", quantPixels[800]);
+            Console.WriteLine("quant={0}", quantPixels[266]);
             return quantPixels;
+        }
+
+        public Mat MakeBmpMask(MatrixMat matrixMat, double threshold)
+        {
+            var mat = new Mat(matrixMat.Width, matrixMat.Height);
+            for (int y = 0; y < matrixBmp.Height; y++)
+            {
+                for (int x = 0; x < matrixBmp.Width; x++)
+                {
+                    var c = new Color();
+                    if (matrixBmp.GlcmHomogeneity[x + y * matrixBmp.Width] >= threshold && matrixBmp.ZPixels[x + y * matrixBmp.Width] > 10000)
+                    {
+                        c = Color.FromArgb(255, 255, 255);
+                    }
+                    else
+                    {
+                        c = Color.FromArgb(0, 0, 0);
+                    }
+                    bmp.SetPixel(x, y, c);
+                }
+            }
+            return bmp;
         }
     }
 }
