@@ -33,6 +33,10 @@ namespace OpenCvTexture
             matrixMat.QuantLevel = quantizationLevel;
             matrixMat.QuantPixels = matConvertor.Quantize(matrixMat);
             matrixMat.BinaryPixels = textureCal.GetGlcmHomogeneity(matrixMat, filtersize, threshold);
+            Mat mat = matConvertor.MakeBmpMask(matrixMat);
+            Cv2.ImShow("mat", mat);
+            Cv2.WaitKey(1);
+
         }
 
        

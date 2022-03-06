@@ -27,6 +27,7 @@ namespace OpenCvTexture
                     //Debug.WriteLine("x={0},y={1},quant={2},homo={3}", x, y, matrixMat.QuantPixels[x + y * matrixMat.Width], homogeneity[x + y * matrixMat.Width]);
                 }
              });
+            Console.WriteLine(binary[360]);
             return binary;
         }
 
